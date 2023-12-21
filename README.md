@@ -1,63 +1,12 @@
 # assembly
 [Hello, World!](https://tldp.org/HOWTO/Assembly-HOWTO/hello.html)
 
-## NASM(hello.asm)
-```assembly
-section .text                   ;section declaration
+[Assembly Language Programming with ARM – Full Tutorial for Beginners](https://www.youtube.com/watch?v=gfmRrPjnEw4)
 
-                                ;we must export the entry point to the ELF linker or
-    global  _start              ;loader. They conventionally recognize _start as their
-			                          ;entry point. Use ld -e foo to override the default.
+[Compiler Explorer](https://godbolt.org/)
 
-_start:
+[8086 Emulator](https://yjdoc2.github.io/8086-emulator-web/)
 
-                                ;write our string to stdout
+[CPUlator](https://cpulator.01xz.net/?sys=arm-de1soc)
 
-    mov     edx,len             ;third argument: message length
-    mov     ecx,msg             ;second argument: pointer to message to write
-    mov     ebx,1               ;first argument: file handle (stdout)
-    mov     eax,4               ;system call number (sys_write)
-    int     0x80                ;call kernel
 
-                                ;and exit
-
-  	mov     ebx,0               ;first syscall argument: exit code
-    mov     eax,1               ;system call number (sys_exit)
-    int     0x80                ;call kernel
-
-section .data                   ;section declaration
-
-msg db      "Hello, world!",0xa ;our dear string
-len equ     $ - msg             ;length of our dear string
-```
-
-## GAS(hello.S)
-```assembly
-.text                           # section declaration
-
-			                          # we must export the entry point to the ELF linker or
-    .global _start              # loader. They conventionally recognize _start as their
-			                          # entry point. Use ld -e foo to override the default.
-
-_start:
-
-                                # write our string to stdout
-
-	  movl    $len,%edx           # third argument: message length
-	  movl    $msg,%ecx           # second argument: pointer to message to write
-	  movl    $1,%ebx             # first argument: file handle (stdout)
-	  movl    $4,%eax             # system call number (sys_write)
-	  int     $0x80               # call kernel
-
-                                # and exit
-
-	  movl    $0,%ebx             # first argument: exit code
-	  movl    $1,%eax             # system call number (sys_exit)
-	  int     $0x80               # call kernel
-
-.data                           # section declaration
-
-msg:
-	.ascii    "Hello, world!\n"   # our dear string
-	len = . - msg                 # length of our dear string
-```
