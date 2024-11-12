@@ -11,10 +11,9 @@ _start:			; ld start
     mov eax, 4		; system call number	sys_write
     int 0x80		; call kernel
     
-    
+    mov ebx, 0      ; sys exit code    
     mov eax, 1		; system call number	sys_exit
     int 0x80		; call kernel
-
 
 section .data 
     msg db "Hello, the Assembly World!", 0xa	; message
